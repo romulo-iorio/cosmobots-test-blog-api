@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_post, only: %i[ show update destroy ]
 
   def index
@@ -13,7 +13,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @new_post = { title: post_params[:title], content: post_params[:content], user: current_user }
+
+    @post = Post.new(@new_post)
 
     @saved_post = @post.save()
 
