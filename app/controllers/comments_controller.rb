@@ -27,6 +27,8 @@ class CommentsController < ApplicationController
     end
 
     def update
+        authorize @comment
+
         @updated_comment = @comment.update(comment_params)
 
         return return_errors() if not @updated_comment
@@ -35,6 +37,8 @@ class CommentsController < ApplicationController
     end
 
     def destroy
+        authorize @comment
+
         @comment.destroy
     end
 

@@ -25,6 +25,8 @@ class PostsController < ApplicationController
   end
 
   def update
+    authorize @post
+
     @updated_post = @post.update(post_params)
 
     return return_errors() if not @updated_post
@@ -33,6 +35,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    authorize @post
+
     @post.destroy
   end
 
