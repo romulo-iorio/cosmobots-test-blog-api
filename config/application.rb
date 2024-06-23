@@ -36,5 +36,22 @@ module Api
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.action_mailer.default_url_options = { :host => 'http://localhost:5173/' }
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = false
+    config.action_mailer.default :charset => "utf-8"
+
+
+    config.action_mailer.smtp_settings = {
+      :user_name => '2f271fc6939007',
+      :password => 'f69066e74950be',
+      :address => 'sandbox.smtp.mailtrap.io',
+      :host => 'sandbox.smtp.mailtrap.io',
+      :port => '2525',
+      :authentication => :login
+    }
   end
 end
