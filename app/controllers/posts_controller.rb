@@ -50,6 +50,7 @@ class PostsController < ApplicationController
       @like = Like.new(user_id: current_user.id, post_id: @post.id)
       @like.save
       @dislike.destroy if @dislike
+      render json: @like, status: :ok
     end
   end
 
@@ -63,6 +64,7 @@ class PostsController < ApplicationController
       @dislike = Dislike.new(user_id: current_user.id, post_id: @post.id)
       @dislike.save
       @like.destroy if @like
+      render json: @dislike, status: :ok
     end
   end  
 
