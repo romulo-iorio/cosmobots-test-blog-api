@@ -3,6 +3,9 @@ Rails.application.routes.draw do
     devise_for :users
     resources :comments
     resources :posts
+
+    patch "posts/:id/dislike" => "posts#dislike"
+    patch "posts/:id/like" => "posts#like"
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

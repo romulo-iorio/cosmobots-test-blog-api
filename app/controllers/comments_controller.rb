@@ -4,12 +4,12 @@ class CommentsController < ApplicationController
 
     def index
         @comments = Comment.all
-        render json: { comments: @comments }
+        render json: { comments: nest_comment_relations(@comments) }
     end
 
     def show
         @comments = Comment.where(post_id: params[:id])
-        render json: { comments: @comments }
+        render json: { comments: nest_comment_relations(@comments) }
     end
 
     def create
@@ -23,21 +23,21 @@ class CommentsController < ApplicationController
 
         return return_errors() if not @saved_comment
 
-        render json: { comment: @comment }, status: :created
+        render json: { comment: nest_comment_relations(@comment) }, status: :created
     end
 
     def update
-        authorize @comment
+        # authorize @comment
 
         @updated_comment = @comment.update(comment_params)
 
         return return_errors() if not @updated_comment
 
-        render json: @comment
+        render json: { comment: nest_comment_relations(@comment) }
     end
 
     def destroy
-        authorize @comment
+        # authorize @comment
 
         @comment.destroy
     end
@@ -53,5 +53,9 @@ class CommentsController < ApplicationController
 
         def return_errors
             render json: { error: @comment.errors }, status: :unprocessable_entity
+        end
+
+        def nest_comment_relations(comment)
+            comment.as_json(include: :user)
         end
     end
